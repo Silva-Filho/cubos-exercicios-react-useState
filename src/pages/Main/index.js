@@ -8,7 +8,7 @@ export function Main() {
     function handleAddTask( event ) {
         const content = event.target.value;
 
-        if ( event.key !== "Enter" || content === "" ) {
+        if ( event.key !== "Enter" || content.trim() === "" ) {
             return;
         }
 
@@ -63,17 +63,21 @@ export function Main() {
             <div>
                 <input
                     type="text"
+                    aria-label="add-todo"
                     placeholder="Adicionar nova tarefa"
                     onKeyDown={ ( event ) => handleAddTask( event ) }
                 />
             </div>
 
             <div>
-                <ul>
+                <ul aria-roledescription="Lista de tarefas não ordenadas">
                     { tasks.map( ( task ) => (
                         // @ts-ignore
-                        <li key={ task.id }>
+                        <li key={ task.id } data-testid={task.id} >
                             <span
+                                // aria-label="todo-item"
+                                // @ts-ignore
+                                // data-testid={task.id}
                                 // @ts-ignore
                                 className={ `${ task.done && "task-done" }` }
                                 // @ts-ignore
@@ -85,6 +89,7 @@ export function Main() {
                                     task.name
                                 }
                             </span>
+
                             <button
                                 className="btn-del"
                                 // @ts-ignore
